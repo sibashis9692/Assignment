@@ -4,6 +4,7 @@ from .forms import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -57,7 +58,6 @@ class registration(View):
         form = RegistrationForm(request.POST)
 
         if(form.is_valid()):
-            print(form.cleaned_data)
 
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
@@ -80,9 +80,10 @@ class registration(View):
                         return redirect("/login/")
                     
                     messages.error(request, "Password and Conform Password is not same")
+                    return redirect("/register/")   
                 messages.error(request, "Given Email is Alrady exists")
+                return redirect("/register/")   
             messages.error(request, "Username is Alrady taken")
-
         return redirect("/register/")   
     
 @login_required(login_url='/login/')

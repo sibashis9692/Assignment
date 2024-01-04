@@ -59,6 +59,7 @@ Make sure you have the following installed on your machine:
 1. Apply migrations:
 
     ```bash
+    python manage.py makemigrations
     python manage.py migrate
     ```
 
